@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Icon } from './Icons'
 import { Eyebrow } from './Motifs'
+import Reveal from './Reveal'
 
 export function Button({
   to,
@@ -35,11 +36,11 @@ export function Button({
 
 export function SectionHeading({ eyebrow, title, lede, align = 'left' }) {
   return (
-    <div className={`section-heading align-${align}`}>
+    <Reveal className={`section-heading align-${align}`}>
       {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
       <h2>{title}</h2>
       {lede && <p className="lede">{lede}</p>}
-    </div>
+    </Reveal>
   )
 }
 
@@ -51,27 +52,41 @@ export function IconTile({ icon }) {
   )
 }
 
-export function ValueCard({ name, desc, icon }) {
+export function ValueCard({ name, desc, icon, delay = 0 }) {
   return (
-    <article className="value-card">
+    <Reveal as="article" className="value-card" delay={delay}>
       <IconTile icon={icon} />
       <h3>{name}</h3>
       <p>{desc}</p>
-    </article>
+    </Reveal>
   )
 }
 
 /* Stand-in for real photography — none was supplied with the site content.
    Keeps the identity's dawn/grain language instead of a generic broken
    image or stock-photo placeholder; swap for real photos when available. */
-export function PhotoPlaceholder({ label, ratio = '4 / 3', tone = 'dawn' }) {
+export function PhotoPlaceholder({ label, ratio = '4 / 3', tone = 'dawn', delay = 0 }) {
   return (
-    <div className={`photo-placeholder tone-${tone}`} style={{ aspectRatio: ratio }}>
+    <Reveal
+      className={`photo-placeholder tone-${tone}`}
+      delay={delay}
+      style={{ aspectRatio: ratio }}
+    >
       <svg viewBox="0 0 600 420" preserveAspectRatio="none" aria-hidden="true">
         <path d="M0 300a300 260 0 0 1 600 0" opacity="0.5" />
         <path d="M-40 340h680" opacity="0.5" />
       </svg>
       {label && <span className="photo-placeholder-label">{label}</span>}
-    </div>
+    </Reveal>
+  )
+}
+
+/* A real (stock, temporary) photo standing in for real church photography.
+   Swap `src` for real photography before launch. */
+export function PhotoImage({ src, alt, ratio = '4 / 3', delay = 0 }) {
+  return (
+    <Reveal className="photo-image" delay={delay} style={{ aspectRatio: ratio }}>
+      <img src={src} alt={alt} loading="lazy" />
+    </Reveal>
   )
 }

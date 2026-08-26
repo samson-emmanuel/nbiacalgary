@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom'
-import { Button, SectionHeading, ValueCard, PhotoPlaceholder } from '../components/UI'
+import { Button, SectionHeading, ValueCard, PhotoImage } from '../components/UI'
 import { DawnMark, Eyebrow } from '../components/Motifs'
+import Reveal from '../components/Reveal'
 import { Icon, IconClock, IconPin, IconArrowRight, IconPlay } from '../components/Icons'
+import { demoImages } from '../data/images'
+import pastorPhoto from '../assets/images/pastor-james-onare.jpg'
 import {
   church,
   aboutParagraphs,
@@ -18,7 +21,7 @@ const featuredValues = coreValues.filter((v) =>
 export default function Home() {
   return (
     <>
-      <section className="page-hero">
+      <section className="page-hero" style={{ '--hero-image': `url(${demoImages.heroWorship})` }}>
         <DawnMark className="hero-dawn" />
         <div className="container hero-inner">
           <Eyebrow>{church.altLine}</Eyebrow>
@@ -56,13 +59,15 @@ export default function Home() {
         <div className="container split">
           <div>
             <SectionHeading eyebrow="Who We Are" title="A place for a new beginning" />
-            <p className="body-text">{aboutParagraphs[0]}</p>
-            <p className="body-text">{aboutParagraphs[2]}</p>
-            <Button to="/about" variant="text">
-              More about our church <IconArrowRight width={16} height={16} />
-            </Button>
+            <Reveal as="div" delay={100}>
+              <p className="body-text">{aboutParagraphs[0]}</p>
+              <p className="body-text">{aboutParagraphs[2]}</p>
+              <Button to="/about" variant="text">
+                More about our church <IconArrowRight width={16} height={16} />
+              </Button>
+            </Reveal>
           </div>
-          <PhotoPlaceholder label="Sunday gathering, Beddington Theatre Arts Centre" />
+          <PhotoImage src={demoImages.congregation} alt="A church congregation smiling together during a Sunday gathering" />
         </div>
       </section>
 
@@ -74,8 +79,8 @@ export default function Home() {
             title="Core values that shape everything we do"
           />
           <div className="grid-values">
-            {featuredValues.map((v) => (
-              <ValueCard key={v.name} {...v} />
+            {featuredValues.map((v, i) => (
+              <ValueCard key={v.name} {...v} delay={(i % 3) * 80} />
             ))}
           </div>
           <div className="align-center" style={{ marginTop: '2.5rem' }}>
@@ -94,8 +99,8 @@ export default function Home() {
             lede="Prayer and the Word don't stop on Sunday. Join a rhythm of gatherings throughout the week."
           />
           <div className="program-grid">
-            {weeklyPrograms.map((p) => (
-              <article className="program-card" key={p.name}>
+            {weeklyPrograms.map((p, i) => (
+              <Reveal as="article" className="program-card" key={p.name} delay={(i % 4) * 70}>
                 <span className="icon-tile">
                   <Icon name={p.icon} />
                 </span>
@@ -103,7 +108,7 @@ export default function Home() {
                 <h3>{p.name}</h3>
                 <p className="program-when">{p.when}</p>
                 <p>{p.desc}</p>
-              </article>
+              </Reveal>
             ))}
           </div>
           <div className="align-center" style={{ marginTop: '2.5rem' }}>
@@ -116,14 +121,16 @@ export default function Home() {
 
       <section className="section section-alt">
         <div className="container split split-reverse">
-          <PhotoPlaceholder label={pastor.name} ratio="1 / 1" tone="wine" />
+          <PhotoImage src={pastorPhoto} alt="Pastor James Onare" ratio="1 / 1" />
           <div>
             <SectionHeading eyebrow="Meet Our Lead Pastor" title={pastor.name} />
-            <p className="body-text">{pastor.bio[0]}</p>
-            <p className="body-text">{pastor.bio[1]}</p>
-            <Button to="/about#pastor" variant="text">
-              Read more about Pastor James <IconArrowRight width={16} height={16} />
-            </Button>
+            <Reveal as="div" delay={100}>
+              <p className="body-text">{pastor.bio[0]}</p>
+              <p className="body-text">{pastor.bio[1]}</p>
+              <Button to="/about#pastor" variant="text">
+                Read more about Pastor James <IconArrowRight width={16} height={16} />
+              </Button>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -136,14 +143,16 @@ export default function Home() {
             lede="Messages, teaching series and prayer broadcasts from NBIAC — available whenever you need them."
           />
           <div className="watch-grid watch-grid-preview">
-            {watchCategories.slice(0, 4).map((c) => (
-              <Link to="/watch" className="watch-card" key={c.name}>
-                <span className="watch-card-play">
-                  <IconPlay width={22} height={22} />
-                </span>
-                <h3>{c.name}</h3>
-                <p>{c.desc}</p>
-              </Link>
+            {watchCategories.slice(0, 4).map((c, i) => (
+              <Reveal as="div" key={c.name} delay={(i % 4) * 70}>
+                <Link to="/watch" className="watch-card">
+                  <span className="watch-card-play">
+                    <IconPlay width={22} height={22} />
+                  </span>
+                  <h3>{c.name}</h3>
+                  <p>{c.desc}</p>
+                </Link>
+              </Reveal>
             ))}
           </div>
           <div className="align-center" style={{ marginTop: '2.5rem' }}>
@@ -154,16 +163,31 @@ export default function Home() {
         </div>
       </section>
 
+      <section
+        className="scripture-band"
+        style={{ '--band-image': `url(${demoImages.openBible})` }}
+      >
+        <div className="container">
+          <Reveal as="blockquote">
+            “Your word is a lamp for my feet, a light on my path.”
+          </Reveal>
+          <Reveal as="cite" delay={100}>
+            Psalm 119:105
+          </Reveal>
+        </div>
+      </section>
+
       <section className="section section-band">
-        <div className="container band-grid">
-          <div className="band-card">
+        <div className="container band-grid band-grid-single">
+          <Reveal className="band-card">
             <Icon name="flame" />
             <h3>Need Prayer?</h3>
             <p>You don't have to face it alone. Share a request and our team will stand with you.</p>
             <Button to="/prayer" variant="outline">
               Submit a Prayer Request <IconArrowRight width={16} height={16} />
             </Button>
-          </div>
+          </Reveal>
+          {/* Giving CTA hidden until giving details/methods are finalized.
           <span className="band-divider" aria-hidden="true" />
           <div className="band-card">
             <Icon name="seal" />
@@ -173,20 +197,23 @@ export default function Home() {
               Learn About Giving <IconArrowRight width={16} height={16} />
             </Button>
           </div>
+          */}
         </div>
       </section>
 
       <section className="section cta-final">
         <div className="container align-center">
-          <Eyebrow>You Are Welcome. You Are Valued.</Eyebrow>
-          <h2>There is room for you here.</h2>
-          <p className="lede">
-            Whatever season of life you're in, come and experience heartfelt worship,
-            fervent prayer and life-transforming teaching from God's Word.
-          </p>
-          <Button to="/visit" variant="primary">
-            Plan Your First Visit <IconArrowRight width={18} height={18} />
-          </Button>
+          <Reveal>
+            <Eyebrow>You Are Welcome. You Are Valued.</Eyebrow>
+            <h2>There is room for you here.</h2>
+            <p className="lede">
+              Whatever season of life you're in, come and experience heartfelt worship,
+              fervent prayer and life-transforming teaching from God's Word.
+            </p>
+            <Button to="/visit" variant="primary">
+              Plan Your First Visit <IconArrowRight width={18} height={18} />
+            </Button>
+          </Reveal>
         </div>
       </section>
     </>

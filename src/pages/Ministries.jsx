@@ -1,28 +1,27 @@
-import { Eyebrow, SectionRule } from '../components/Motifs'
+import { SectionRule } from '../components/Motifs'
 import { SectionHeading } from '../components/UI'
+import PageHeader from '../components/PageHeader'
+import Reveal from '../components/Reveal'
 import { Icon } from '../components/Icons'
 import { weeklyPrograms, ministries } from '../data/content'
+import { bannerImages } from '../data/images'
 
 export default function Ministries() {
   return (
     <>
-      <section className="page-header">
-        <div className="container">
-          <Eyebrow>Ministries & Programs</Eyebrow>
-          <h1>Ways to gather, grow and serve</h1>
-          <p className="lede">
-            From our weekly rhythms of prayer and teaching to the ministries that carry
-            our mission forward, there's a place for you to belong.
-          </p>
-        </div>
-      </section>
+      <PageHeader
+        eyebrow="Ministries & Programs"
+        title="Ways to gather, grow and serve"
+        lede="From our weekly rhythms of prayer and teaching to the ministries that carry our mission forward, there's a place for you to belong."
+        image={bannerImages.ministries}
+      />
 
       <section className="section">
         <div className="container">
           <SectionHeading eyebrow="Weekly Programs" title="Our rhythm through the week" />
           <div className="program-grid">
-            {weeklyPrograms.map((p) => (
-              <article className="program-card" key={p.name}>
+            {weeklyPrograms.map((p, i) => (
+              <Reveal as="article" className="program-card" key={p.name} delay={(i % 4) * 70}>
                 <span className="icon-tile">
                   <Icon name={p.icon} />
                 </span>
@@ -30,7 +29,7 @@ export default function Ministries() {
                 <h3>{p.name}</h3>
                 <p className="program-when">{p.when}</p>
                 <p>{p.desc}</p>
-              </article>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -42,8 +41,8 @@ export default function Ministries() {
         <div className="container">
           <SectionHeading eyebrow="Our Ministries" title="Where our mission takes shape" />
           <div className="ministry-grid">
-            {ministries.map((m) => (
-              <article className="ministry-card" key={m.name}>
+            {ministries.map((m, i) => (
+              <Reveal as="article" className="ministry-card" key={m.name} delay={(i % 3) * 80}>
                 <span className="icon-tile">
                   <Icon name={m.icon} />
                 </span>
@@ -56,7 +55,7 @@ export default function Ministries() {
                     ))}
                   </ul>
                 )}
-              </article>
+              </Reveal>
             ))}
           </div>
         </div>

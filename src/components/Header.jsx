@@ -37,9 +37,11 @@ export default function Header() {
             ))}
           </ul>
           <div className="main-nav-cta">
+            {/* Give button hidden until giving details/methods are finalized.
             <Button to="/giving" variant="ghost">
               Give
             </Button>
+            */}
             <Button to="/visit" variant="primary">
               Plan Your Visit
             </Button>
