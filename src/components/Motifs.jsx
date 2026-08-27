@@ -11,11 +11,11 @@ export function DawnMark({ className = '' }) {
       aria-hidden="true"
     >
       <g stroke="currentColor" strokeWidth="1" opacity="0.9">
-        <path d="M90 300a210 210 0 0 1 420 0" />
-        <path d="M40 300h520" />
-        <path d="M300 60v46M180 90l28 38M420 90l-28 38M110 170l40 24M490 170l-40 24" />
+        <path pathLength="1" d="M90 300a210 210 0 0 1 420 0" />
+        <path pathLength="1" d="M40 300h520" />
+        <path pathLength="1" d="M300 60v46M180 90l28 38M420 90l-28 38M110 170l40 24M490 170l-40 24" />
       </g>
-      <circle cx="300" cy="300" r="3" fill="currentColor" stroke="none" />
+      <circle className="dawn-mark-dot" cx="300" cy="300" r="3" fill="currentColor" stroke="none" />
     </svg>
   )
 }

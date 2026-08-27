@@ -85,7 +85,7 @@ export function PhotoPlaceholder({ label, ratio = '4 / 3', tone = 'dawn', delay 
    Swap `src` for real photography before launch. */
 export function PhotoImage({ src, alt, ratio = '4 / 3', delay = 0 }) {
   return (
-    <Reveal className="photo-image" delay={delay} style={{ aspectRatio: ratio }}>
+    <Reveal className="photo-image reveal-scale" delay={delay} style={{ aspectRatio: ratio }}>
       <img src={src} alt={alt} loading="lazy" />
     </Reveal>
   )
